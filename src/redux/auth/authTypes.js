@@ -1,0 +1,8 @@
+/**
+ * author: Denis Kravchenko
+ */
+export const USER_SIGNIN_SUCCESS = "USER_SIGNIN_SUCCESS";
+export const USER_SIGNIN_ERROR = "USER_SIGNIN_ERROR";
+export const USER_SIGNOUT_SUCCESS = "USER_SIGNOUT_SUCCESS";
+export const USER_SIGNUP_SUCCESS = "USER_SIGNUP_SUCCESS";
+export const USER_SIGNUP_ERROR = "USER_SIGNUP_ERROR";
