@@ -89,35 +89,35 @@ const Item = (props) => {
   console.log(props.boat.id);
   return (
     <Grid item sm={4}>
-      <Link
-        to={`/item/${props.boat.id}?name=${props.boat.name}&size=${props.boat.size}&price=${props.boat.price}&image=${props.boat.image}`}
-      >
-        <Card className={classes.root}>
-          <CardHeader
-            title={
-              <Typography>
-                {props.boat.name} - {props.boat.size}
-              </Typography>
-            }
-            subheader={`$${props.boat.price}`}
-            action={
-              isInCart ? (
-                <IconButton onClick={handleDeleteCart}>
-                  <CheckCircleIcon style={{ color: "rgb(0,204,0)" }} />
-                </IconButton>
-              ) : (
-                <IconButton onClick={handleAddToCart}>
-                  <AddCircleIcon style={{ color: "rgb(60,60,60)" }} />
-                </IconButton>
-              )
-            }
-          />
+      <Card className={classes.root}>
+        <CardHeader
+          title={
+            <Typography>
+              {props.boat.name} - {props.boat.size}
+            </Typography>
+          }
+          subheader={`$${props.boat.price}`}
+          action={
+            isInCart ? (
+              <IconButton onClick={handleDeleteCart}>
+                <CheckCircleIcon style={{ color: "rgb(0,204,0)" }} />
+              </IconButton>
+            ) : (
+              <IconButton onClick={handleAddToCart}>
+                <AddCircleIcon style={{ color: "rgb(60,60,60)" }} />
+              </IconButton>
+            )
+          }
+        />
+        <Link
+          to={`/item/${props.boat.id}?name=${props.boat.name}&size=${props.boat.size}&price=${props.boat.price}&image=${props.boat.image}`}
+        >
           <CardMedia
             image={props.boat.image}
             className={classes.media}
           ></CardMedia>
-        </Card>
-      </Link>
+        </Link>
+      </Card>
     </Grid>
   );
 };

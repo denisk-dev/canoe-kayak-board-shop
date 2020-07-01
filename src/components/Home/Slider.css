@@ -1,0 +1,32 @@
+.slick-prev:before {
+  width: 100px;
+  height: 100px;
+  /* content: "" !important; */
+  position: absolute;
+
+  left: -86px;
+
+  background-image: url("../../images/left-arrow.svg");
+  background-repeat: no-repeat;
+  vertical-align: middle;
+  background-size: 86px;
+  opacity: 1;
+  content: "";
+}
+
+.slick-next:before {
+  width: 100px;
+  height: 100px;
+  /* content: "" !important; */
+  position: absolute;
+  /* top: -31px; */
+  /* left: 61px; */
+  /* /* color: "red"; */
+
+  background-image: url("../../images/right-arrow.svg");
+  background-repeat: no-repeat;
+  vertical-align: middle;
+  background-size: 86px;
+  opacity: 1;
+  content: "";
+}

@@ -29,6 +29,7 @@ const useStyles = makeStyles({
 });
 
 const Selection = (props) => {
+  console.log(props);
   const classes = useStyles();
   return (
     <Card className={classes.root}>
@@ -39,7 +40,7 @@ const Selection = (props) => {
               labelPlacement="start"
               control={
                 <Checkbox
-                  checked={props.canoe}
+                  checked={props.state.canoe}
                   onChange={props.handleSelection}
                   name="canoe"
                 />
@@ -50,7 +51,7 @@ const Selection = (props) => {
               labelPlacement="start"
               control={
                 <Checkbox
-                  checked={props.kayak}
+                  checked={props.state.kayak}
                   onChange={props.handleSelection}
                   name="kayak"
                 />
@@ -61,7 +62,7 @@ const Selection = (props) => {
               labelPlacement="start"
               control={
                 <Checkbox
-                  checked={props.paddleboard}
+                  checked={props.state.board}
                   onChange={props.handleSelection}
                   name="paddleboard"
                 />

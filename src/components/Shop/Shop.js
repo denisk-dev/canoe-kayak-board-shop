@@ -17,25 +17,36 @@ import {
   isEmpty,
 } from "../../redux/inventory/InventoryActions";
 
-const Shop = () => {
+import query from "query-string";
+
+const Shop = (props) => {
   const [boats, setBoats] = useState({
     canoe: false,
     kayak: false,
-    paddleboard: false,
+    board: false,
   });
+
+  useEffect(() => {
+    const equipment = query.parse(props.location.search);
+    if (equipment.type) {
+      const type = equipment.type.toLowerCase();
+      console.log(type);
+      setBoats({ ...boats, [type]: true });
+    }
+  }, []);
+
+  // console.log(props.location.search);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     boats.canoe ? dispatch(getCanoe()) : dispatch(hideCanoe());
     boats.kayak ? dispatch(getKayak()) : dispatch(hideKayak());
-    boats.paddleboard
-      ? dispatch(getPaddleBoard())
-      : dispatch(hidePaddleBoard());
+    boats.board ? dispatch(getPaddleBoard()) : dispatch(hidePaddleBoard());
 
     // console.log(boats.canoe, boats.kayak, boats.paddleboard);
 
-    if (!boats.canoe && !boats.kayak && !boats.paddleboard) {
+    if (!boats.canoe && !boats.kayak && !boats.board) {
       dispatch(isEmpty());
     }
   }, [boats]);
@@ -44,7 +55,7 @@ const Shop = () => {
   const isEmptyNote = useSelector((state) => state.inventory.note);
 
   const uid = useSelector((state) => state.firebase.auth.uid);
-  const test = useSelector((state) => console.log(state));
+
   if (!uid) return <Redirect to="/signin" />;
 
   const handleSelection = (e) => {

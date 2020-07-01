@@ -21,6 +21,8 @@ import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 import BottomBar from "../Appbar/BottomBar";
 
+import SliderItems from "./Slider";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "100%",
@@ -83,6 +85,11 @@ const Home = () => {
         <Grid item xs={12} sm={3}></Grid>
         <Grid item xs={12} sm={6}>
           <ShopLink />
+        </Grid>
+        <Grid item xs={12} sm={3}></Grid>
+        <Grid item xs={12} sm={3}></Grid>
+        <Grid item xs={12} sm={6}>
+          <SliderItems />
         </Grid>
         <Grid item xs={12} sm={3}></Grid>
       </Grid>

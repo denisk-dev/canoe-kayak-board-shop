@@ -18,6 +18,7 @@ import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import { Typography } from "@material-ui/core";
+import BottomBar from "../Appbar/BottomBar";
 
 import Item from "./Item";
 
@@ -52,89 +53,96 @@ const Cart = () => {
 
   if (!uid) return <Redirect to="/signin" />;
   return (
-    <Grid container>
-      <Grid item xs={12} sm={2}></Grid>
-      <Grid item xs={12} sm={8}>
-        <TableContainer component={Paper} style={{ marginTop: 150 }}>
-          <Table className={classes.table} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell></TableCell>
-                <TableCell>Item</TableCell>
-                <TableCell></TableCell>
-                <TableCell>Size</TableCell>
-                <TableCell></TableCell>
-                <TableCell>Price</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {cart.carts ? (
-                cart.carts.map((item) => {
-                  return (
-                    <Item
-                      key={item.id}
-                      item={item}
-                      setItemsPrices={setItemsPrices}
-                      itemsPrices={itemsPrices}
-                    />
-                  );
-                })
-              ) : (
-                <TableRow></TableRow>
-              )}
-              <TableRow>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
-                <TableCell align="right">
-                  <Typography>Subtotal : </Typography>
-                  <Typography>Tax : </Typography>
-                  <br />
-                  <Typography>Total : </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography>
-                    ${itemsPrices ? itemsPrices.reduce((a, b) => a + b, 0) : ""}
-                  </Typography>
-                  <Typography>
-                    $
-                    {itemsPrices
-                      ? (
-                          itemsPrices.reduce((a, b) => a + b, 0) * 0.07
-                        ).toFixed()
-                      : ""}
-                  </Typography>
-                  <br />
-                  <Typography>
-                    $
-                    {itemsPrices
-                      ? (
-                          itemsPrices.reduce((a, b) => a + b, 0) * 1.07
-                        ).toFixed()
-                      : ""}
-                  </Typography>
-                </TableCell>
-              </TableRow>
+    <div>
+      <Grid container>
+        <Grid item xs={12} sm={2}></Grid>
+        <Grid item xs={12} sm={8}>
+          <TableContainer component={Paper} style={{ marginTop: 150 }}>
+            <Table className={classes.table} aria-label="simple table">
+              <TableHead>
+                <TableRow
+                  style={{ backgroundColor: "#f50057", color: "whitesmoke" }}
+                >
+                  <TableCell style={{ color: "whitesmoke" }}></TableCell>
+                  <TableCell style={{ color: "whitesmoke" }}>Item</TableCell>
+                  <TableCell style={{ color: "whitesmoke" }}></TableCell>
+                  <TableCell style={{ color: "whitesmoke" }}>Size</TableCell>
+                  <TableCell style={{ color: "whitesmoke" }}></TableCell>
+                  <TableCell style={{ color: "whitesmoke" }}>Price</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {cart.carts ? (
+                  cart.carts.map((item) => {
+                    return (
+                      <Item
+                        key={item.id}
+                        item={item}
+                        setItemsPrices={setItemsPrices}
+                        itemsPrices={itemsPrices}
+                      />
+                    );
+                  })
+                ) : (
+                  <TableRow></TableRow>
+                )}
+                <TableRow>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                  <TableCell align="right">
+                    <Typography>Subtotal : </Typography>
+                    <Typography>Tax : </Typography>
+                    <br />
+                    <Typography>Total : </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography>
+                      $
+                      {itemsPrices
+                        ? itemsPrices.reduce((a, b) => a + b, 0)
+                        : ""}
+                    </Typography>
+                    <Typography>
+                      $
+                      {itemsPrices
+                        ? (
+                            itemsPrices.reduce((a, b) => a + b, 0) * 0.07
+                          ).toFixed()
+                        : ""}
+                    </Typography>
+                    <br />
+                    <Typography>
+                      $
+                      {itemsPrices
+                        ? (
+                            itemsPrices.reduce((a, b) => a + b, 0) * 1.07
+                          ).toFixed()
+                        : ""}
+                    </Typography>
+                  </TableCell>
+                </TableRow>
 
-              <TableRow>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
+                <TableRow>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
 
-                <TableCell colSpan={2} align="right">
-                  <Button variant="contained" color="primary">
-                    Place Order
-                  </Button>
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
+                  <TableCell colSpan={2} align="right">
+                    <Button variant="contained" color="primary">
+                      Place Order
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Grid>
+        <Grid item xs={12} sm={2}></Grid>
       </Grid>
-      <Grid item xs={12} sm={2}></Grid>
-    </Grid>
+    </div>
   );
 };
 

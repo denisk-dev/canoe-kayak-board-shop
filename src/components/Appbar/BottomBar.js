@@ -9,10 +9,10 @@ import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    top: "auto",
-    bottom: 0,
+    // top: "auto",
+    // bottom: "-100",
     position: "static",
-    marginTop: 150,
+    marginTop: 250,
   },
 }));
 

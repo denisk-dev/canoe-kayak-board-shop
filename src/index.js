@@ -17,6 +17,9 @@ import { createFirestoreInstance } from "redux-firestore";
 import { isLoaded } from "react-redux-firebase";
 import Spinner from "./components/Spinner/Spinner";
 
+import { createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/styles";
+
 const profileSpecificProps = {
   userProfile: "carts",
   useFirestoreForProfile: true,
@@ -41,12 +44,23 @@ const AuthDone = ({ children }) => {
   return children;
 };
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      // Purple and green play nicely together.
+      main: "rgb(40,40,40)",
+    },
+  },
+});
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <ReactReduxFirebaseProvider {...rrfProps}>
         <AuthDone>
-          <App />
+          <ThemeProvider theme={theme}>
+            <App />
+          </ThemeProvider>
         </AuthDone>
       </ReactReduxFirebaseProvider>
     </Provider>

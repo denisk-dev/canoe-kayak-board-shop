@@ -14,6 +14,7 @@ import ItemInfo from "./components/ItemInfo/ItemInfo";
 
 import SignIn from "./components/Auth/SignIn";
 import SignUp from "./components/Auth/SignUp";
+import "./App.css";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/signin" exact component={SignIn} />
         </Switch>
       </Router>
+
       {/* <BottomBar /> */}
     </div>
   );

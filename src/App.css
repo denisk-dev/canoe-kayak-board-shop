@@ -1,0 +1,10 @@
+.App {
+  min-height: 100vh;
+
+  /* display: "flex",
+    minHeight: "100vh",
+    flexDirection: "column", */
+  /* display: flex;
+  min-height: 100vh;
+  flex-direction: column; */
+}

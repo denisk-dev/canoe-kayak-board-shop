@@ -1,7 +1,7 @@
 /**
  * author: Denis Kravchenko
  */
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import queryString from "query-string";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -12,10 +12,15 @@ import Typography from "@material-ui/core/Typography";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
+import { useFirestoreConnect } from "react-redux-firebase";
+
+import { useSelector, useDispatch } from "react-redux";
 
 import Button from "@material-ui/core/Button";
 
 import Grid from "@material-ui/core/Grid";
+
+import { addItem, deleteItem } from "../../redux/cart/CartActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,8 +43,10 @@ const useStyles = makeStyles((theme) => ({
   controls: {
     display: "flex",
     alignItems: "center",
-    paddingLeft: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
+    justifyContent: "space-between",
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
   playIcon: {
     height: 38,
@@ -50,15 +57,62 @@ const useStyles = makeStyles((theme) => ({
 const ItemInfo = (props) => {
   const query = queryString.parse(props.location.search);
 
+  const [isInCart, setIsInCart] = useState(false);
+
+  const dispatch = useDispatch();
+
+  useFirestoreConnect([{ collection: "carts" }]);
+
+  const state = useSelector((state) => state.firestore.ordered);
+  const uid = useSelector((state) => state.firebase.auth.uid);
+
+  // console.log(props.match.params.id);
+
+  useEffect(() => {
+    if (state.carts && uid) {
+      state.carts.forEach((item) => {
+        if (uid === item.authId && parseInt(props.match.params.id) === item.id_)
+          setIsInCart(true);
+        // else setIsInCart(false);
+      });
+    }
+  }, [state, uid]);
+
+  const handleDeleteCart = () => {
+    setIsInCart(!isInCart);
+    if (state.carts && uid) {
+      state.carts.forEach((item) => {
+        if (uid === item.authId && parseInt(props.match.params.id) === item.id_)
+          dispatch(deleteItem({ id: item.id }));
+      });
+    }
+  };
+
+  const handleAddToCart = () => {
+    setIsInCart(true);
+    // console.log(query);
+    dispatch(
+      addItem({
+        price: parseInt(query.price),
+        name: query.name,
+        id_: parseInt(props.match.params.id),
+        size: query.size,
+        image: query.image,
+      })
+    );
+  };
+
+  console.log(isInCart);
+
   const { name, price, size, image } = query;
 
   const classes = useStyles();
   const theme = useTheme();
 
-  console.log(name);
-  console.log(price);
-  console.log(size);
-  console.log(image);
+  // console.log(name);
+  // console.log(price);
+  // console.log(size);
+  // console.log(image);
   return (
     <Grid container>
       <Grid item xs={12} sm={3}></Grid>
@@ -77,7 +131,7 @@ const ItemInfo = (props) => {
               <Typography variant="subtitle1" color="textSecondary">
                 {size}
               </Typography>
-              <Typography>${price}</Typography>
+
               <Typography>
                 Canoes are widely used for competition and pleasure, such as
                 racing, whitewater, touring and camping, freestyle and general
@@ -90,7 +144,24 @@ const ItemInfo = (props) => {
               </Typography>
             </CardContent>
             <div className={classes.controls}>
-              <Button>Add to Cart</Button>
+              <Typography>${price}</Typography>
+              {!isInCart ? (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleAddToCart}
+                >
+                  Add to Cart
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={handleDeleteCart}
+                >
+                  Remove From Cart
+                </Button>
+              )}
             </div>
           </div>
         </Card>

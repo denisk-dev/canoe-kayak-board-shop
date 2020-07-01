@@ -55,7 +55,7 @@ const SignedIn = (props) => {
     };
   }, [cart]);
 
-  console.log(numberOfItemsInCart);
+  // console.log(numberOfItemsInCart);
 
   const [anchorEl, setAnchorEl] = useState(null);
 
